@@ -6,6 +6,6 @@ app.get('/servicio-b', (req, res) => {
   res.json({ mensaje: "Respuesta desde Servicio B" });
 });
 
-app.listen(port, () => {
-  console.log(`Servicio B escuchando en http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Servicio B escuchando en http://0.0.0.0:${port}`);
 });
