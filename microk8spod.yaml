@@ -106,3 +106,41 @@ spec:
       targetPort: 3002
   selector:
     app: servicio-b
+---
+
+# Servicio C
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-c-deployment
+  labels:
+    app: servicio-c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-c
+  template:
+    metadata:
+      labels:
+        app: servicio-c
+    spec:
+      containers:
+      - name: servicio-c-container
+        image: docker.io/yhcarlos14/servicioc:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-c-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3003
+      targetPort: 3003
+  selector:
+    app: servicio-c
+---
