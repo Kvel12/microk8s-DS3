@@ -23,5 +23,11 @@ async def orquestar():
             data_c = respuesta_c.json()
         except httpx.RequestError as e:
             data_c = f"El servicio C no está disponible: {str(e)}"
+        
+        try:
+            respuesta_f = await client.get("http://servicio-f-service:3006/servicio-f")
+            data_f = respuesta_f.json()
+        except httpx.RequestError as e:
+            data_f = f"El servicio F no está disponible: {str(e)}"
 
-    return {"respuesta_a": data_a, "respuesta_b": data_b, "respuesta_c": data_c}
+    return {"respuesta_a": data_a, "respuesta_b": data_b, "respuesta_c": data_c, "respuesta_f": data_f}
