@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: servicio-g-pod
+  labels:
+    app: servicio-g
+spec:
+  containers:
+    - name: servicio-g-container
+      image: fredyball/servicio-a:latest
+      ports:
+        - containerPort: 3007
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-g-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3007
+      protocol: TCP
+  selector:
+    app: servicio-g
