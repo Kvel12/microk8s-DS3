@@ -144,3 +144,40 @@ spec:
   selector:
     app: servicio-c
 ---
+
+# Servicio D
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-d-deployment
+  labels:
+    app: servicio-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-d
+  template:
+    metadata:
+      labels:
+        app: servicio-d
+    spec:
+      containers:
+      - name: servicio-d-container
+        image: ghcr.io/josemanuel2005/serviciod:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3004
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-d-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3004
+      targetPort: 3004
+  selector:
+    app: servicio-d
+---
