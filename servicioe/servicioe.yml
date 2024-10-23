@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: servicio-e-pod
+  labels:
+    app: servicio-e
+spec:
+  containers:
+    - name: servicio-e-container
+      image: fredyball/servicio-e:latest
+      ports:
+        - containerPort: 3005
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-e-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3005
+      protocol: TCP
+  selector:
+    app: servicio-e
