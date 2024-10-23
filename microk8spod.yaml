@@ -200,7 +200,7 @@ spec:
     spec:
       containers:
       - name: servicio-e-container
-        image: ghcr.io/Vanloop/servicio-e:latest
+        image: ghcr.io/vanloop/servicio-e:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3005
