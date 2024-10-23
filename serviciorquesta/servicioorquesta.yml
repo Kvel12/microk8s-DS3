@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: servicio-orquesta-pod
+  labels:
+    app: servicio-orquesta
+spec:
+  containers:
+    - name: servicio-orquesta-container
+      image: fredyball/microrquesta:latest
+      ports:
+        - containerPort: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-orquesta-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
+  selector:
+    app: servicio-orquesta

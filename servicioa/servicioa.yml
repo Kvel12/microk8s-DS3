@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: servicio-a-pod
+  labels:
+    app: servicio-a
+spec:
+  containers:
+    - name: servicio-a-container
+      image: fredyball/servicio-a:latest
+      ports:
+        - containerPort: 3001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-a-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3001
+      protocol: TCP
+  selector:
+    app: servicio-a

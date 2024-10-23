@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: netshoot-pod
+spec:
+  containers:
+  - name: netshoot
+    image: nicolaka/netshoot
+    command: ["sleep"]
+    args: ["3600"]
