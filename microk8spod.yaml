@@ -1,0 +1,108 @@
+# Servicio Orquestador
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-orquestador-deployment
+  labels:
+    app: servicio-orquestador
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-orquestador
+  template:
+    metadata:
+      labels:
+        app: servicio-orquestador
+    spec:
+      containers:
+      - name: servicio-orquestador-container
+        image: ghcr.io/kvel12/servicio-orquesta:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-orquestador-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30000
+  selector:
+    app: servicio-orquestador
+---
+# Servicio A
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-a-deployment
+  labels:
+    app: servicio-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-a
+  template:
+    metadata:
+      labels:
+        app: servicio-a
+    spec:
+      containers:
+      - name: servicio-a-container
+        image: ghcr.io/kvel12/servicio-a:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-a-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3001      
+      targetPort: 3001
+  selector:
+    app: servicio-a
+---
+# Servicio B
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-b-deployment
+  labels:
+    app: servicio-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-b
+  template:
+    metadata:
+      labels:
+        app: servicio-b
+    spec:
+      containers:
+      - name: servicio-b-container
+        image: ghcr.io/kvel12/servicio-b:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-b-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3002
+      targetPort: 3002
+  selector:
+    app: servicio-b
