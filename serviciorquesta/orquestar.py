@@ -32,7 +32,7 @@ async def orquestar():
 
         try:
             respuesta_e = await client.get("http://servicio-e-service:3005/servicio-e")
-            data_d = respuesta_e.json()
+            data_e = respuesta_e.json()
         except httpx.RequestError as e:
             data_e = f"El servicio E no está disponible: {str(e)}"
         
