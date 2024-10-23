@@ -218,3 +218,40 @@ spec:
   selector:
     app: servicio-f
 ---
+
+# Servicio G
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicio-g-deployment
+  labels:
+    app: servicio-g
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicio-g
+  template:
+    metadata:
+      labels:
+        app: servicio-g
+    spec:
+      containers:
+      - name: servicio-g-container
+        image: docker.io/brayanjurado/serviciog:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3007
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-g-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3007
+      targetPort: 3007
+  selector:
+    app: servicio-g
+---
